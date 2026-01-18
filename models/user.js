@@ -1,12 +1,22 @@
 const mongoose = require("mongoose");
 
-const petSchema = new mongoose.Schema({
-  name: String,
-  type: String,
-  color: String,
-  birthday: String,
-})
 
+const foodSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  calories: {
+    type: String,
+    min: 0,
+  }
+}, {
+  timestamps: true
+})
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -16,6 +26,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pantry: {
+    type: [foodSchema],
+    default: []
+  }
 });
 
 const User = mongoose.model("User", userSchema);
